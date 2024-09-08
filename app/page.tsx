@@ -1,10 +1,15 @@
 'use client'
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 
+type AuthResponse = {
+  type: string,
+}
+
 export default function Home() {
   const WS_URL = "ws://192.168.2.27:8123/api/websocket"
+  const [authorized, setAuthorized] = useState(false);
 
   const { sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(WS_URL, {
     share: true,
@@ -24,8 +29,26 @@ export default function Home() {
 
     // Run when a new WebSocket message is received (lastJsonMessage)
     useEffect(() => {
-      console.log(`Got a new message: ${JSON.stringify(lastJsonMessage)}`)
+      if(typeof lastJsonMessage === "object" && lastJsonMessage !== null) {
+        console.log(`Got a new message: ${JSON.stringify(lastJsonMessage)}`)
+        const message = lastJsonMessage as AuthResponse;
+
+        if (message.type === "auth_ok") {
+          setAuthorized(true);
+        }
+        
+      }
+
     }, [lastJsonMessage])
+
+    useEffect(()=>{
+      if(authorized) {
+        sendJsonMessage({
+          id: 18,
+          type: "subscribe_events",
+        })
+      }
+    }, [authorized, sendJsonMessage])
 
   return (
     <div className={styles.page}>
