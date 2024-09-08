@@ -6,7 +6,10 @@ import useWebSocket, { ReadyState } from "react-use-websocket";
 export default function Home() {
   const WS_URL = "ws://192.168.2.27:8123/api/websocket"
 
-  const { sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(WS_URL);
+  const { sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(WS_URL, {
+    share: true,
+    shouldReconnect: ()=>true,
+  });
 
     // Run when the connection state (readyState) changes
     useEffect(() => {
