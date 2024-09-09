@@ -5,7 +5,7 @@ type AuthResponse = {
   type: string,
 }
 
-export type WebSocketEvent = {
+type WebSocketEvent = {
   type: string,
   event: {
     event_type: string,
@@ -16,7 +16,7 @@ export type WebSocketEvent = {
   }
 }
 
-export type FetchResult = {
+type FetchResult = {
   id: number,
   type: string,
   success: boolean,
@@ -34,17 +34,18 @@ type EntityStateChange = {
   }
 }
 
-type EntityState = {
+export type EntityState = {
   entity_id: string,
   state: string,
   attributes: JSON,
+  last_changed: string,
 }
 
 type Props = { children: React.ReactNode }
 
-const WebSocketContext = createContext<{[entity_id: string]: EntityState} | null>(null);
+const EntityStatesContext = createContext<{[entity_id: string]: EntityState} | null>(null);
 
-const WebSocketProvider = ({ children }: Props) => {
+const EntityStateProvider = ({ children }: Props) => {
   const WS_URL = "ws://192.168.2.27:8123/api/websocket"
   const stateFetchID = 18;
   const stateSubscriptionID = 25;
@@ -127,7 +128,7 @@ const WebSocketProvider = ({ children }: Props) => {
         const stateChange: EntityStateChange = lastJsonMessage as EntityStateChange;
 
         if(stateChange.type === "event") {
-          console.log(`New state change: ${JSON.stringify(stateChange.event.data.new_state)}`)
+          // console.log(`New state change: ${JSON.stringify(stateChange.event.data.new_state)}`)
           const updatedState = stateChange.event.data.new_state;
           updatedState.entity_id
 
@@ -142,14 +143,14 @@ const WebSocketProvider = ({ children }: Props) => {
   }, [lastJsonMessage, initialStateFetched])
 
   if (authorized) {
-    return (<WebSocketContext.Provider value={entityStates}>
+    return (<EntityStatesContext.Provider value={entityStates}>
       {children}
-    </WebSocketContext.Provider>)
+    </EntityStatesContext.Provider>)
   } else {
     return <div>Authorizing...</div>
   }
 }
 
-export default WebSocketProvider;
+export default EntityStateProvider;
 
-export const useWebSocketEvents = () => useContext(WebSocketContext);
+export const useEntityStatesContext = () => useContext(EntityStatesContext);
