@@ -5,17 +5,6 @@ type AuthResponse = {
   type: string,
 }
 
-type WebSocketEvent = {
-  type: string,
-  event: {
-    event_type: string,
-    data: {
-      entity_id: string,
-      new_state: JSON,
-    }
-  }
-}
-
 type FetchResult = {
   id: number,
   type: string,
@@ -63,6 +52,7 @@ const EntityStateProvider = ({ children }: Props) => {
   useEffect(() => {
     console.log("Connection state changed")
     if (readyState === ReadyState.OPEN) {
+      console.log("Requsting authorization")
       sendJsonMessage({
         type: "auth",
         access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI1ODk1ZWU5ZDRjNWI0YmRmYmQ2OWE3NjcxNjIxNGIyNSIsImlhdCI6MTcyNTU1MDIyMiwiZXhwIjoyMDQwOTEwMjIyfQ.z7E2wlzyTWQAqEKOUKMaSjGnMbmSBk7cJjkFCICq71o"
@@ -73,6 +63,8 @@ const EntityStateProvider = ({ children }: Props) => {
   // Gets initial states when authorization is successful
   useEffect(() => {
     if (authorized) {
+      console.log("Successful authorization")
+      console.log("Fetching initial data...")
       sendJsonMessage({
         id: stateFetchID,
         type: "get_states"
@@ -105,7 +97,9 @@ const EntityStateProvider = ({ children }: Props) => {
           const statesById = fetchResult.result.reduce<Record<string, EntityState>>((acc, entityState) => {
             acc[entityState.entity_id] = entityState;
             return acc;
-          }, {});     
+          }, {});
+          console.log("Initial fetch successful")
+          console.log("Receiving events...")
           setEntityStates(statesById)
           setInitialStateFetched(true)
           sendJsonMessage({

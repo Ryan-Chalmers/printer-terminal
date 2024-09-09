@@ -23,8 +23,6 @@ export default function EntityStateWrapper(props: Props) {
            const newEntityState: EntityState = states[props.entityID]
 
            if(newEntityState) {
-
-            console.log(lastChanged)
             // If last changed not found, set it and update the entity state
             if(!lastChanged) {
                 setLastChanged(new Date(newEntityState.last_changed))
