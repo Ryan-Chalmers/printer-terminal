@@ -26,7 +26,7 @@ type EntityStateChange = {
 export type EntityState = {
   entity_id: string,
   state: string,
-  attributes: JSON,
+  attributes: unknown,
   last_changed: string,
 }
 
@@ -34,8 +34,11 @@ type Props = { children: React.ReactNode }
 
 const EntityStatesContext = createContext<{[entity_id: string]: EntityState} | null>(null);
 
+
 const EntityStateProvider = ({ children }: Props) => {
-  const WS_URL = "ws://192.168.2.27:8123/api/websocket"
+
+  const WS_URL = process.env.NEXT_PUBLIC_HA_WEBOOK_URL ?? "";
+
   const stateFetchID = 18;
   const stateSubscriptionID = 25;
   const [authorized, setAuthorized] = useState(false);
@@ -53,9 +56,11 @@ const EntityStateProvider = ({ children }: Props) => {
     console.log("Connection state changed")
     if (readyState === ReadyState.OPEN) {
       console.log("Requsting authorization")
+      const HA_API_KEY = process.env.NEXT_PUBLIC_HA_API_KEY;
+      console.log(HA_API_KEY);
       sendJsonMessage({
         type: "auth",
-        access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI1ODk1ZWU5ZDRjNWI0YmRmYmQ2OWE3NjcxNjIxNGIyNSIsImlhdCI6MTcyNTU1MDIyMiwiZXhwIjoyMDQwOTEwMjIyfQ.z7E2wlzyTWQAqEKOUKMaSjGnMbmSBk7cJjkFCICq71o"
+        access_token: HA_API_KEY
       })
     }
   }, [readyState, sendJsonMessage])
