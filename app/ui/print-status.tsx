@@ -1,12 +1,14 @@
 'use client'
 
-import { useEntityStateContext } from "../lib/entity-state-wrapper"
+import { useSelector } from "react-redux"
+import { selectEntityStateByID } from "../lib/home-assistant/ha-entity-states-slice"
+import entities from "../lib/entity-ids"
+import { RootState } from "../store"
 
 
 export default function PrintStatus() {
 
-    const state = useEntityStateContext()
-    // const [entityState, setEntityState] = useState("")
+    const entityState = useSelector((state: RootState)=> selectEntityStateByID(state, entities.printStatus))
 
-    return (<p>{state?.state}</p>)
+    return (<p>{entityState ? entityState.state : "Not found"}</p>)
 }

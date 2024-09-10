@@ -4,6 +4,9 @@ import { Provider } from "react-redux";
 import styles from "./page.module.css";
 import { store } from "./store";
 import HomeAssistantConnector from "./lib/ha-connector";
+import HAEntityStateProvider from "./lib/ha-entity-state-provider";
+import PrintStatus from "./ui/print-status";
+import PrintImage from "./ui/print-image";
 
 
 export default function Home() {
@@ -12,7 +15,11 @@ export default function Home() {
     <div className={styles.page}>
       <Provider store={store}>
         <HomeAssistantConnector>
-          <p>Printer Terminal</p>
+          <HAEntityStateProvider>
+            <p>Printer Terminal</p>
+            <PrintImage/>
+            <PrintStatus/>
+          </HAEntityStateProvider>
         </HomeAssistantConnector>
       </Provider>
     </div>
