@@ -1,28 +1,20 @@
 'use client'
-import EntityStateWrapper from "./lib/entity-state-wrapper";
-import EntityStateProvider from "./lib/entity-state-provider";
+
+import { Provider } from "react-redux";
 import styles from "./page.module.css";
-import PrintStatus from "./ui/print-status";
-import PrintImage from "./ui/print-image";
-import entityIDs from "./lib/entity-ids";
+import { store } from "./store";
+import HomeAssistantConnector from "./lib/ha-connector";
 
 
 export default function Home() {
 
   return (
     <div className={styles.page}>
-      <EntityStateProvider>
-        <h1>Printer Terminal</h1>
-        <EntityStateWrapper entityID={entityIDs.printImage}>
-          <PrintImage/>
-        </EntityStateWrapper>
-        <EntityStateWrapper entityID={entityIDs.printStatus}>
-          <PrintStatus/>
-        </EntityStateWrapper>
-        <EntityStateWrapper entityID={entityIDs.printStage}>
-          <PrintStatus/>
-        </EntityStateWrapper>
-      </EntityStateProvider>
+      <Provider store={store}>
+        <HomeAssistantConnector>
+          <p>Printer Terminal</p>
+        </HomeAssistantConnector>
+      </Provider>
     </div>
   );
 }
