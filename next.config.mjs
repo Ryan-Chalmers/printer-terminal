@@ -1,7 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['192.168.2.27']
+        remotePatterns: [
+            {
+              protocol: 'http',
+              hostname: '192.168.2.27',
+              port: '8123',
+              pathname: '/api/image_proxy/**',
+            },
+          ],
     }
 };
 

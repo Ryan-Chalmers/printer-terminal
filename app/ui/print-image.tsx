@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useEntityStateContext } from "../lib/entity-state-wrapper"
-// import Image from 'next/image'
+import Image from 'next/image'
 
 type Attributes = {
     access_token: string,
@@ -22,13 +22,13 @@ export default function PrintImage() {
         // Set up the interval to run every 1000ms (1 second)
         if (state) {
             const attributes = state.attributes as Attributes;
-            setURL(`${HA_URL}${attributes.entity_picture}#timestamp=${new Date().getTime()}`)
+            setURL(`${HA_URL}${attributes.entity_picture}&timestamp=${new Date().getTime()}`)
         }
     }, [state, HA_URL, url]);
 
     console.log(url);
 
-    return <img 
+    return <Image 
         src={url} 
         alt="Printer camera image"
         width={1000}
