@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import useWebSocket from "react-use-websocket";
-import { AuthState, updateAuthState, updateReadyState } from "./ha-connection/ha-connection-slice";
+import { AuthState, updateAuthState, updateReadyState } from "./home-assistant/ha-connection-slice";
 
 type Message = {
     type: string,
@@ -24,6 +24,7 @@ export default function HomeAssistantConnector({ children }: Props) {
         dispatch(updateReadyState(readyState))
     }, [dispatch, readyState])
 
+    // Checks for authentication update messages and updates state
     useEffect(() => {
         const message: Message = lastJsonMessage as Message;
         if (message) {

@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import haConnectionReducer from '@/app/lib/ha-connection/ha-connection-slice'
+import haConnectionReducer from '@/app/lib/home-assistant/ha-connection-slice'
 
 export const store = configureStore({
   reducer: {
