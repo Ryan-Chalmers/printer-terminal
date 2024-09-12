@@ -1,95 +1,95 @@
-type Entities = {
-    [key: string]: {
-        id: string,
-        name: string
+export type Entities = {
+    [id: string]: {
+        description: string
+        logged: boolean
     }
 }
 
 const entities: Entities =  {
-    printImage: {
-        id: "image.p1p_01s00c450400639_camera",
-        name: "Camera"
+    "image.p1p_01s00c450400639_camera": {
+        description: "Camera",
+        logged: true,
     },
-    printStatus: {
-        id:  "sensor.p1p_01s00c450400639_print_status",
-        name: "Print Status"
+    "sensor.p1p_01s00c450400639_print_status": {
+        description: "Print Status",
+        logged: true,
     },
-    printStage: {
-        id: "sensor.p1p_01s00c450400639_current_stage",
-        name: "Print Stage",
+    "sensor.p1p_01s00c450400639_current_stage": {
+        description: "Print Stage",
+        logged: true,
     },
-    printProgress: {
-        id: "sensor.p1p_01s00c450400639_print_progress",
-        name: "Print Progress"
+    "sensor.p1p_01s00c450400639_print_progress": {
+        description: "Print Progress",
+        logged: true,
     },
-    printError: {
-        id: "binary_sensor.p1p_01s00c450400639_print_error",
-        name: "Printer Error"
+    "binary_sensor.p1p_01s00c450400639_print_error": {
+        description: "Printer Error",
+        logged: true,
     },
-    printEndTime: {
-        id: "sensor.p1p_01s00c450400639_end_time",
-        name: "Print End Time"
+    "sensor.p1p_01s00c450400639_end_time": {
+        description: "Print End Time",
+        logged: false,
     },
-    printTimeRemaining: {
-        id: "sensor.p1p_01s00c450400639_remaining_time",
-        name: "Print Time Remaining"
+    "sensor.p1p_01s00c450400639_remaining_time": {
+        description: "Print Time Remaining",
+        logged: false,
     },
-    printCurrentLayer: {
-        id: "sensor.p1p_01s00c450400639_current_layer",
-        name: "Current Layer"
+    "sensor.p1p_01s00c450400639_current_layer": {
+        description: "Current Layer",
+        logged: true,
     },
     
-    printTotalLayers: {
-        id: "sensor.p1p_01s00c450400639_total_layer_count",
-        name: "Total Layers"
+    "sensor.p1p_01s00c450400639_total_layer_count": {
+        description: "Total Layers",
+        logged: false,
     },
-    printName: {
-        id: "sensor.p1p_01s00c450400639_task_name",
-        name: "Print Name"
+    "sensor.p1p_01s00c450400639_task_name": {
+        description: "Print Name",
+        logged: false,
     },
-    bedTemperature: {
-        id: "sensor.p1p_01s00c450400639_bed_temperature",
-        name: "Bed Temperature"
+    "sensor.p1p_01s00c450400639_bed_temperature": {
+        description: "Bed Temperature",
+        logged: false,
     },
-    nozzleTemperature: {
-        id: "sensor.p1p_01s00c450400639_nozzle_temperature",
-        name: "Nozzle Temperature"
+    "sensor.p1p_01s00c450400639_nozzle_temperature": {
+        description: "Nozzle Temperature",
+        logged: false,
     },
-    nozzleTargetTemperature: {
-        id: "sensor.p1p_01s00c450400639_nozzle_target_temperature",
-        name: "Nozzle Target Temperature"
+    "sensor.p1p_01s00c450400639_nozzle_target_temperature": {
+        description: "Nozzle Target Temperature",
+        logged: true,
     },
-    amsError: {
-        id:  "binary_sensor.p1p_01s00c450400639_hms_errors",
-        name: "AMS Error"
+    "binary_sensor.p1p_01s00c450400639_hms_errors": {
+        description: "AMS Error",
+        logged: true,
     },
-    amsTray1: {
-        id: "sensor.p1p_01s00c450400639_ams_1_tray_1",
-        name: "AMS Tray 1"
+    "sensor.p1p_01s00c450400639_ams_1_tray_1": {
+        description: "AMS Tray 1",
+        logged: false,
     },
-    amsTray2: {
-        id: "sensor.p1p_01s00c450400639_ams_1_tray_2",
-        name: "AMS Tray 2"
+    "sensor.p1p_01s00c450400639_ams_1_tray_2": {
+        description: "AMS Tray 2",
+        logged: false,
     },
-    amsTray3: {
-        id: "sensor.p1p_01s00c450400639_ams_1_tray_3",
-        name: "AMS Tray 3"
+    "sensor.p1p_01s00c450400639_ams_1_tray_3": {
+        description: "AMS Tray 3",
+        logged: false,
     },
-    amsTray4: {
-        id: "sensor.p1p_01s00c450400639_ams_1_tray_1",
-        name: "AMS Tray 4"
+    "sensor.p1p_01s00c450400639_ams_1_tray_4": {
+        description: "AMS Tray 4",
+        logged: false,
     },
-    amsHumidity: {
-        id: "sensor.p1p_01s00c450400639_ams_1_humidity_index",
-        name: "AMS Humidity"
+    "sensor.p1p_01s00c450400639_ams_1_humidity_index": {
+        description: "AMS Humidity",
+        logged: false,
     },
-    amsActiveTray: {
-        id: "sensor.p1p_01s00c450400639_active_tray",
-        name: "AMS Active Tray"
+    "sensor.p1p_01s00c450400639_active_tray": {
+        description: "AMS Active Tray",
+        logged: true,
     },
-    amsActiveTrayIndex: {
-        id: "sensor.p1p_01s00c450400639_active_tray_index",
-        name: "AMS Active Tray Index"
+    "sensor.p1p_01s00c450400639_active_tray_index": {
+        description: "AMS Active Tray Index",
+        logged: false
     }
 }
 

@@ -5,6 +5,7 @@ import { AuthState, selectAuthState, selectReadyState } from "./home-assistant/h
 import { EntityState, loadInitialData, selectEntityStates, Status, updateEntityState, updateStatus } from "./home-assistant/ha-entity-states-slice";
 import { addLogEvent } from "./event-log-slice";
 import { SensorEvent } from "./log-event";
+import entities from "./entities";
 
 type Props = { children: React.ReactNode }
 
@@ -71,7 +72,9 @@ export default function HAEntityStateProvider({ children }: Props) {
         if (haEntityStates.status === Status.LISTENING && message.type === 'event' && message.event) {
             const updatedState = message.event.data.new_state;
             dispatch(updateEntityState(updatedState))
-            dispatch(addLogEvent(new SensorEvent(updatedState)))
+            if (entities[updatedState.entity_id]?.logged) {
+                dispatch(addLogEvent(new SensorEvent(updatedState)))
+            }
         }
     })
 

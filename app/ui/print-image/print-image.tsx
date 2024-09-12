@@ -17,7 +17,7 @@ type Attributes = {
 
 export default function PrintImage() {
 
-    const printImage = useSelector((state: RootState)=> selectEntityStateByID(state, entities.printImage.id))
+    const printImage = useSelector((state: RootState)=> selectEntityStateByID(state, "image.p1p_01s00c450400639_camera"))
     const HA_URL = process.env.NEXT_PUBLIC_HA_API_URL;
 
     const [url, setURL] = useState("");
