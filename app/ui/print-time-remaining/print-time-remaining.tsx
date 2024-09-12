@@ -5,7 +5,7 @@ import { useSelector } from "react-redux"
 
 
 export default function PrintTimeRemaining() {
-    const printTimeRemaining = useSelector((state: RootState)=> selectEntityStateByID(state, entities.printTimeRemaining))
+    const printTimeRemaining = useSelector((state: RootState)=> selectEntityStateByID(state, entities.printTimeRemaining.id))
 
     return (<p>{printTimeRemaining ? printTimeRemaining.state : "Not found"}</p>)
 }

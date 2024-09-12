@@ -71,7 +71,7 @@ export default function HAEntityStateProvider({ children }: Props) {
         if (haEntityStates.status === Status.LISTENING && message.type === 'event' && message.event) {
             const updatedState = message.event.data.new_state;
             dispatch(updateEntityState(updatedState))
-            dispatch(addLogEvent(new SensorEvent("Sensor has been updated", updatedState)))
+            dispatch(addLogEvent(new SensorEvent(updatedState)))
         }
     })
 

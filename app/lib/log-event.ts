@@ -36,9 +36,9 @@ export class SensorEvent implements LogEvent {
     message: string;
     entityState: EntityState;
 
-    constructor(message: string, entityState: EntityState) {
+    constructor(entityState: EntityState) {
         this.timestamp = new Date().toISOString();
-        this.message = message;
+        this.message = entityState.state;
         this.entityState = entityState;
     }
 }

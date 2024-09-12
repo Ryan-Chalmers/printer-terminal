@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import Image from 'next/image'
 import { useSelector } from "react-redux"
 import { RootState } from "../../store"
-import entities from "../../lib/entity-ids"
+import entities from "../../lib/entities"
 import { selectEntityStateByID } from "../../lib/home-assistant/ha-entity-states-slice"
 import styles from "@/app/ui/print-image/print-image.module.css"
 
@@ -17,7 +17,7 @@ type Attributes = {
 
 export default function PrintImage() {
 
-    const printImage = useSelector((state: RootState)=> selectEntityStateByID(state, entities.printImage))
+    const printImage = useSelector((state: RootState)=> selectEntityStateByID(state, entities.printImage.id))
     const HA_URL = process.env.NEXT_PUBLIC_HA_API_URL;
 
     const [url, setURL] = useState("");
