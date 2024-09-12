@@ -1,0 +1,17 @@
+.logContainer {
+    display: flex;
+    flex-direction: column-reverse; /* Populate from bottom */
+    height: 300px; /* Fixed height */
+    width: 400px;  /* Fixed width */
+    overflow-y: auto; /* Scroll when too many logs */
+    border: 1px solid #ccc; /* Optional border */
+    padding: 10px;
+  }
+  
+  .logEntry {
+    padding: 5px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    word-break: break-word; /* Handle long messages */
+  }
+  

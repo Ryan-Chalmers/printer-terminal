@@ -1,7 +1,9 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useWebSocket from "react-use-websocket";
-import { AuthState, updateAuthState, updateReadyState } from "./home-assistant/ha-connection-slice";
+import { AuthState, selectAuthState, updateAuthState, updateReadyState } from "./home-assistant/ha-connection-slice";
+import { addLogEvent } from "./event-log-slice";
+import { AuthEvent, ConnectionEvent } from "./log-event";
 
 type Message = {
     type: string,
@@ -12,6 +14,7 @@ type Props = { children: React.ReactNode }
 export default function HomeAssistantConnector({ children }: Props) {
     const WS_URL = process.env.NEXT_PUBLIC_HA_WEBOOK_URL ?? "";
     const dispatch = useDispatch();
+    const authState = useSelector(selectAuthState)
 
     // Initialize the web socket
     const { readyState, sendJsonMessage, lastJsonMessage } = useWebSocket(WS_URL, {
@@ -22,7 +25,12 @@ export default function HomeAssistantConnector({ children }: Props) {
     // Run when the connection state (readyState) changes
     useEffect(() => {
         dispatch(updateReadyState(readyState))
+        dispatch(addLogEvent(new ConnectionEvent(readyState)))
     }, [dispatch, readyState])
+
+    useEffect(()=>{
+        dispatch(addLogEvent(new AuthEvent(authState)))
+    }, [dispatch,authState])
 
     // Checks for authentication update messages and updates state
     useEffect(() => {

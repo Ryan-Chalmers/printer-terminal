@@ -5,8 +5,11 @@ import styles from "./page.module.css";
 import { store } from "./store";
 import HomeAssistantConnector from "./lib/ha-connector";
 import HAEntityStateProvider from "./lib/ha-entity-state-provider";
-import PrintStatus from "./ui/print-status";
-import PrintImage from "./ui/print-image";
+import PrintImage from "./ui/print-image/print-image";
+import PrintProgress from "./ui/print-progress/print-progress";
+import PrintStatus from "./ui/print-status/print-status";
+import PrintTimeRemaining from "./ui/print-time-remaining/print-time-remaining";
+import EventLog from "./ui/event-log/event-log";
 
 
 export default function Home() {
@@ -16,9 +19,13 @@ export default function Home() {
       <Provider store={store}>
         <HomeAssistantConnector>
           <HAEntityStateProvider>
-            <p>Printer Terminal</p>
+            {/* <div className={styles.gridContainer}> */}
             <PrintImage/>
+            <EventLog/>
             <PrintStatus/>
+            <PrintTimeRemaining/>
+            <PrintProgress/>
+            {/* {/* </div> */}
           </HAEntityStateProvider>
         </HomeAssistantConnector>
       </Provider>

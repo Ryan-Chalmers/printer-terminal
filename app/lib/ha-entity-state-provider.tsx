@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import { AuthState, selectAuthState, selectReadyState } from "./home-assistant/ha-connection-slice";
 import { EntityState, loadInitialData, selectEntityStates, Status, updateEntityState, updateStatus } from "./home-assistant/ha-entity-states-slice";
+import { addLogEvent } from "./event-log-slice";
+import { SensorEvent } from "./log-event";
 
 type Props = { children: React.ReactNode }
 
@@ -46,7 +48,7 @@ export default function HAEntityStateProvider({ children }: Props) {
                 dispatch(updateStatus(Status.FETCHING_INITIAL))
             }
         }
-    }, [haReadyState, haAuthState])
+    }, [haReadyState, haAuthState, dispatch, sendJsonMessage, haEntityStates.status])
 
     // Awaits results form the initial data fetch and updates state
     useEffect(() => {
@@ -69,6 +71,7 @@ export default function HAEntityStateProvider({ children }: Props) {
         if (haEntityStates.status === Status.LISTENING && message.type === 'event' && message.event) {
             const updatedState = message.event.data.new_state;
             dispatch(updateEntityState(updatedState))
+            dispatch(addLogEvent(new SensorEvent("Sensor has been updated", updatedState)))
         }
     })
 

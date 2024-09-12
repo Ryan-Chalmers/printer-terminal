@@ -3,9 +3,10 @@
 import { useEffect, useState } from "react"
 import Image from 'next/image'
 import { useSelector } from "react-redux"
-import { RootState } from "../store"
-import entities from "../lib/entity-ids"
-import { selectEntityStateByID } from "../lib/home-assistant/ha-entity-states-slice"
+import { RootState } from "../../store"
+import entities from "../../lib/entity-ids"
+import { selectEntityStateByID } from "../../lib/home-assistant/ha-entity-states-slice"
+import styles from "@/app/ui/print-image/print-image.module.css"
 
 type Attributes = {
     access_token: string,
@@ -16,20 +17,19 @@ type Attributes = {
 
 export default function PrintImage() {
 
-    const entityState = useSelector((state: RootState)=> selectEntityStateByID(state, entities.printImage))
+    const printImage = useSelector((state: RootState)=> selectEntityStateByID(state, entities.printImage))
     const HA_URL = process.env.NEXT_PUBLIC_HA_API_URL;
 
     const [url, setURL] = useState("");
 
     useEffect(() => {
-        // Set up the interval to run every 1000ms (1 second)
-        if (entityState) {
-            const attributes = entityState.attributes as Attributes;
+        if (printImage) {
+            const attributes = printImage.attributes as Attributes;
             setURL(`${HA_URL}${attributes.entity_picture}&timestamp=${new Date().getTime()}`)
         }
-    }, [entityState, HA_URL, url]);
+    }, [printImage, HA_URL, url]);
 
-    return url ? <Image 
+    return url ? <Image className={styles.image}
         src={url} 
         alt="Printer camera image"
         width={1000}
