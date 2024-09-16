@@ -8,13 +8,13 @@
 
   /* Right section for Event Log */
 .rightSection {
-  background-color: lightblue;
   box-sizing: border-box;
-  height: 100%; /* Full height of the viewport */
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-end; /* Start items from the bottom */
   overflow: hidden;
+  border: 2px solid white;
 }
 
 .leftSection {
@@ -25,13 +25,7 @@
 }
 
 .data {
-  background: teal;
   box-sizing: border-box;
   height: 100%;
-  border: 2px solid white;
-}
-
-.logWrapper {
-  background: yellowgreen;
   border: 2px solid white;
 }

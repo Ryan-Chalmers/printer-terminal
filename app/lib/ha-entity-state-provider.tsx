@@ -4,7 +4,6 @@ import useWebSocket, { ReadyState } from "react-use-websocket";
 import { AuthState, selectAuthState, selectReadyState } from "./home-assistant/ha-connection-slice";
 import { EntityState, loadInitialData, selectEntityStates, Status, updateEntityState, updateStatus } from "./home-assistant/ha-entity-states-slice";
 import { addLogEvent } from "./event-log-slice";
-import { SensorEvent } from "./log-event";
 import entities from "./entities";
 
 type Props = { children: React.ReactNode }
@@ -73,7 +72,11 @@ export default function HAEntityStateProvider({ children }: Props) {
             const updatedState = message.event.data.new_state;
             dispatch(updateEntityState(updatedState))
             if (entities[updatedState.entity_id]?.logged) {
-                dispatch(addLogEvent(new SensorEvent(updatedState)))
+                dispatch(addLogEvent({
+                    eventType: 'sensor_event',
+                    message: `${entities[updatedState.entity_id].description} state changed: ${updatedState.state}`,
+                    timestamp: new Date().toISOString(),
+                }))
             }
         }
     })

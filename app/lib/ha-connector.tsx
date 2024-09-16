@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import useWebSocket from "react-use-websocket";
+import useWebSocket, { ReadyState } from "react-use-websocket";
 import { AuthState, selectAuthState, updateAuthState, updateReadyState } from "./home-assistant/ha-connection-slice";
 import { addLogEvent } from "./event-log-slice";
-import { AuthEvent, ConnectionEvent } from "./log-event";
 
 type Message = {
     type: string,
@@ -25,12 +24,20 @@ export default function HomeAssistantConnector({ children }: Props) {
     // Run when the connection state (readyState) changes
     useEffect(() => {
         dispatch(updateReadyState(readyState))
-        dispatch(addLogEvent(new ConnectionEvent(readyState)))
+        dispatch(addLogEvent({
+            eventType: 'connection_event',
+            message: `Ready state changed: ${ReadyState[readyState]}`,
+            timestamp: new Date().toISOString(),
+        }))
     }, [dispatch, readyState])
 
-    useEffect(()=>{
-        dispatch(addLogEvent(new AuthEvent(authState)))
-    }, [dispatch,authState])
+    useEffect(() => {
+        dispatch(addLogEvent({
+            eventType: 'auth_event',
+            message: `Authentication state changed: ${AuthState[authState]}`,
+            timestamp: new Date().toISOString(),
+        }))
+    }, [dispatch, authState])
 
     // Checks for authentication update messages and updates state
     useEffect(() => {

@@ -1,8 +1,11 @@
 /* Image section */
 .image {
-  width: 100%;
+  width: calc(100% - 24px);
   height: auto;
   max-width: 1000px;
   max-height: 750px;
   object-fit: cover;
+  border: 2px solid white;
+  padding: 10px;
+  margin-bottom: 20px; 
 }

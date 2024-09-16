@@ -8,7 +8,7 @@ export type Entities = {
 const entities: Entities =  {
     "image.p1p_01s00c450400639_camera": {
         description: "Camera",
-        logged: true,
+        logged: false,
     },
     "sensor.p1p_01s00c450400639_print_status": {
         description: "Print Status",

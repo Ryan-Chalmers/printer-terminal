@@ -6,10 +6,8 @@ import { store } from "./store";
 import HomeAssistantConnector from "./lib/ha-connector";
 import HAEntityStateProvider from "./lib/ha-entity-state-provider";
 import PrintImage from "./ui/print-image/print-image";
-import PrintProgress from "./ui/print-progress/print-progress";
-import PrintStatus from "./ui/print-status/print-status";
-import PrintTimeRemaining from "./ui/print-time-remaining/print-time-remaining";
 import EventLog from "./ui/event-log/event-log";
+import PrintProgress from "./ui/print-progress/print-progress";
 
 
 export default function Home() {
@@ -23,7 +21,7 @@ export default function Home() {
               <div className={styles.leftSection}>
                 <PrintImage/>
                 <div className={styles.data}>
-
+                  <PrintProgress/>
                 </div>
               </div>
               <div className={styles.rightSection}>

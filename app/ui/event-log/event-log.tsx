@@ -9,7 +9,7 @@ export default function EventLog() {
     return (
         <div className={styles.logContainer}>
           {eventLog.slice().reverse().map((log, index) => (
-            <div key={index} className={styles.logEntry}>{log.message}</div>
+            <div key={index} className={styles.logEntry}>{`$ ${log.message}`}</div>
           ))}
         </div>
       );
