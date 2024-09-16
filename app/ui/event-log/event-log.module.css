@@ -1,11 +1,11 @@
 .logContainer {
-    display: flex;
-    flex-direction: column-reverse; /* Populate from bottom */
-    height: 300px; /* Fixed height */
-    width: 400px;  /* Fixed width */
-    overflow-y: auto; /* Scroll when too many logs */
-    border: 1px solid #ccc; /* Optional border */
-    padding: 10px;
+  flex-grow: 1; /* Ensures the log grows to fill available space */
+  display: flex;
+  flex-direction: column-reverse; /* Add items from the bottom upwards */
+  overflow-y: auto; /* Scrolls when content overflows */
+  max-height: 100%;
+  background-color: teal;
+  box-sizing: border-box; /* Scroll when too many logs */
   }
   
   .logEntry {

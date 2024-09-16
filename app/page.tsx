@@ -19,13 +19,19 @@ export default function Home() {
       <Provider store={store}>
         <HomeAssistantConnector>
           <HAEntityStateProvider>
-            {/* <div className={styles.gridContainer}> */}
-            <PrintImage/>
-            <EventLog/>
-            <PrintStatus/>
-            <PrintTimeRemaining/>
-            <PrintProgress/>
-            {/* {/* </div> */}
+            <div className={styles.container}>
+              <div className={styles.leftSection}>
+                <PrintImage/>
+                <div className={styles.data}>
+
+                </div>
+              </div>
+              <div className={styles.rightSection}>
+                <div className={styles.logWrapper}>
+                  <EventLog/>
+                </div>
+              </div>
+            </div>
           </HAEntityStateProvider>
         </HomeAssistantConnector>
       </Provider>

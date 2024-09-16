@@ -1,7 +1,37 @@
-.gridContainer {
+.container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Creates 3 equal columns */
+    grid-template-columns: 2fr 1fr; /* Creates 3 equal columns */
     gap: 20px; /* Adds space between columns */
     width: 100%; /* Ensures the grid takes up the full width */
     height: 100vh; /* Optional: makes the grid take up the full viewport height */
   }
+
+  /* Right section for Event Log */
+.rightSection {
+  background-color: lightblue;
+  box-sizing: border-box;
+  height: 100%; /* Full height of the viewport */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Start items from the bottom */
+  overflow: hidden;
+}
+
+.leftSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%; /* Takes up full height of viewport */
+}
+
+.data {
+  background: teal;
+  box-sizing: border-box;
+  height: 100%;
+  border: 2px solid white;
+}
+
+.logWrapper {
+  background: yellowgreen;
+  border: 2px solid white;
+}

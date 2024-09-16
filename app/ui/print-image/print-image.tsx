@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import Image from 'next/image'
 import { useSelector } from "react-redux"
 import { RootState } from "../../store"
-import entities from "../../lib/entities"
 import { selectEntityStateByID } from "../../lib/home-assistant/ha-entity-states-slice"
 import styles from "@/app/ui/print-image/print-image.module.css"
 
