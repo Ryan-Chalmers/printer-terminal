@@ -15,6 +15,7 @@ export const eventLogSlice = createSlice({
     reducers: {
         addLogEvent: (state, action: PayloadAction<LogEvent>)=>{
             state.push(action.payload);
+            console.log(state);
         }
     }
 })

@@ -4,15 +4,20 @@ import { selectEntityStateByID } from "../../lib/home-assistant/ha-entity-states
 import styles from "@/app/ui/print-progress/print-progress.module.css"
 import { useEffect, useState } from "react";
 
+type TimeRemainingAttributes = {
+    unit_of_measurement: string
+}
 export default function PrintProgress() {
     const BAR_SIZE = 25;
-    const [progress, setProgress] = useState(0)
-    const timeToFinish: string = "6s"
+    const [progress, setProgress] = useState(0);
+    const [unitOfMeasurement, setUnitOfMeasurement] = useState("min");
+    const timeToFinish: string = "6s";
     
     const printProgress = useSelector((state: RootState)=> selectEntityStateByID(state, "sensor.p1p_01s00c450400639_print_progress"))
     const totalLayers = useSelector((state: RootState) => selectEntityStateByID(state, "sensor.p1p_01s00c450400639_total_layer_count"))
     const currentLayer = useSelector((state: RootState) => selectEntityStateByID(state, "sensor.p1p_01s00c450400639_current_layer"))
-    
+    const timeRemaining = useSelector((state: RootState) => selectEntityStateByID(state, "sensor.p1p_01s00c450400639_remaining_time"))
+
     function generateProgressBar(progress: number): string {
         const empty = '-'
         const full = '+'
@@ -27,11 +32,18 @@ export default function PrintProgress() {
         }
     }, [printProgress])
 
+    useEffect(()=> {
+        if(timeRemaining?.state) {
+            const attributes = timeRemaining.attributes as TimeRemainingAttributes;
+            setUnitOfMeasurement(attributes.unit_of_measurement);
+        }
+    }, [timeRemaining])
+
     return (<p>
             <span className={styles.layer}>{`[${currentLayer?.state}/${totalLayers?.state}]`}</span>
             <span className={styles.percentage}> {progress * 100}% </span>
             <span> {`[${generateProgressBar(progress)}]`} </span>
-            <span> finished in: {timeToFinish} </span>
+            <span> finished in: {`${timeRemaining?.state } ${unitOfMeasurement}`} </span>
         </p>
     )
 }

@@ -66,6 +66,7 @@ export default function HAEntityStateProvider({ children }: Props) {
 
     }, [lastJsonMessage, dispatch, sendJsonMessage])
 
+    // TODO: This is being called twice, once on message received and once when the dispatch is pushed
     useEffect(() => {
         const message: Message = lastJsonMessage as Message;
         if (haEntityStates.status === Status.LISTENING && message.type === 'event' && message.event) {
@@ -79,7 +80,7 @@ export default function HAEntityStateProvider({ children }: Props) {
                 }))
             }
         }
-    })
+    }, [haEntityStates, dispatch, lastJsonMessage])
 
     return children
 }
