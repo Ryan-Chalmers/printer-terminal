@@ -11,7 +11,6 @@ export default function PrintProgress() {
     const BAR_SIZE = 25;
     const [progress, setProgress] = useState(0);
     const [unitOfMeasurement, setUnitOfMeasurement] = useState("min");
-    const timeToFinish: string = "6s";
     
     const printProgress = useSelector((state: RootState)=> selectEntityStateByID(state, "sensor.p1p_01s00c450400639_print_progress"))
     const totalLayers = useSelector((state: RootState) => selectEntityStateByID(state, "sensor.p1p_01s00c450400639_total_layer_count"))
@@ -39,11 +38,17 @@ export default function PrintProgress() {
         }
     }, [timeRemaining])
 
-    return (<p>
-            <span className={styles.layer}>{`[${currentLayer?.state}/${totalLayers?.state}]`}</span>
-            <span className={styles.percentage}> {progress * 100}% </span>
-            <span> {`[${generateProgressBar(progress)}]`} </span>
-            <span> finished in: {`${timeRemaining?.state } ${unitOfMeasurement}`} </span>
-        </p>
+    return (
+        <div className={styles.printProgress}>
+            <div>
+                Progress
+            </div>
+            <div>
+                <span className={styles.layer}>{`[${currentLayer?.state}/${totalLayers?.state}]`}</span>
+                <span className={styles.percentage}> {progress * 100}% </span>
+                <span> {`[${generateProgressBar(progress)}]`} </span>
+                <span> finished in: {`${timeRemaining?.state } ${unitOfMeasurement}`} </span>
+            </div>
+        </div>
     )
 }

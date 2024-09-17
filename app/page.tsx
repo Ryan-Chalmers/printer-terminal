@@ -8,6 +8,7 @@ import HAEntityStateProvider from "./lib/ha-entity-state-provider";
 import PrintImage from "./ui/print-image/print-image";
 import EventLog from "./ui/event-log/event-log";
 import PrintProgress from "./ui/print-progress/print-progress";
+import HMSInfo from "./ui/hms/hms-info";
 
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
                 <PrintImage/>
                 <div className={styles.data}>
                   <PrintProgress/>
+                  <HMSInfo/>
                 </div>
               </div>
               <div className={styles.rightSection}>
